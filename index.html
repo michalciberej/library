@@ -12,37 +12,24 @@
     <h1>Personal library</h1>
     </div>
     <div id="main">
-        <div class="card y">
-            <h3 class="heading">${y.title}</h3>
-            <p class="text">Author: ${y.author}</p>
-            <p class="text">Number of pages: ${y.pages}</p>
-            <p class="text">Did you read the book?${y.read}</p>
-            <div>
-                <button class="y" id="readBtn" type="button">READ</button>
-                <button class="y" id="exitBtn" type="button">REMOVE</button>
-            </div>
-        </div>
     </div>
     <div id="footer">
         <button type="button" id="circleBtn">+</button>
     </div>
     <div class="modal">
-        <h2>Enter book info</h2>
-        <form class="modalForm">
-            <label for="bookTitle">Title:</label>
-            <input id="bookTitle" type="text" required></input>
-            <label for="bookAuthor">Author:</label>
-            <input id="bookAuthor" input="text" required></input>
-            <label for="bookPages">Number of pages:</label>
-            <input id="bookPages" type="number" required></input>
-            <label for="bookRead">Did you read the book?</label>
-            <select id="bookRead" name="bookRead">
-                <option value="yes">Read</option>
-                <option value="no">Not yet</option>
-            </select>
-            <button type="submit" id="modalBtn">SUBMIT</button>
+        <h2>Add new book</h2>
+        <form class="modalForm" action="" method="post">
+            <input id="bookTitle" type="text" placeholder="Title" required></input>
+            <input id="bookAuthor" type="text" placeholder="Author" required></input>
+            <input id="bookPages" type="number" placeholder="Pages" required></input>
+            <div class="checkboxContainer">
+                <label for="bookRead">Have you read it?</label>
+                <input id="bookRead" type="checkbox" value="Read"></input>
+            </div>
+            <button type="submit" id="modalBtn">Submit</button>
         </form>
         </div>
+    <div class="overlay"><div>
     <script src="./script.js"></script>
 </body>
 </html>
