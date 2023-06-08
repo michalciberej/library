@@ -1,62 +1,56 @@
-const circleBtn = document.querySelector("#circleBtn");
-const mainSection = document.querySelector("#main");
-const modal = document.querySelector(".modal");
-const modalBtn = document.querySelector("#modalBtn");
-const overlay = document.querySelector(".overlay");
-const bookStorage = [{
-    title: "retard",
-    author: "retard",
-    pages: "252",
-    isRead: "read",
-},{
-    title: "retard",
-    author: "retard",
-    pages: "252",
-    isRead: "read",
-}];
+const circleBtn = document.querySelector("#circleBtn")
+const mainSection = document.querySelector("#main")
+const modal = document.querySelector(".modal")
+const modalBtn = document.querySelector("#modalBtn")
+const overlay = document.querySelector(".overlay")
+const modalForm = document.querySelector(".modalForm")
+const bookStorage = []
 
 circleBtn.addEventListener("click", () => {
-        modal.style.setProperty("scale", 1);
+        modal.style.setProperty("scale", 1)
         overlay.style.setProperty("scale", 1)
 })
 overlay.addEventListener("click", () => {
-        modal.style.setProperty("scale", 0);
+        modal.style.setProperty("scale", 0)
         overlay.style.setProperty("scale", 0)
 })
 modalBtn.addEventListener("click", (event) => {
-    modal.style.setProperty("scale", 0);
-    overlay.style.setProperty("scale", 0);
-    event.preventDefault();
-    addBookToLibrary();
-    displayCards()
-    resetInputs();
+    event.preventDefault()
+    modal.style.setProperty("scale", 0)
+    overlay.style.setProperty("scale", 0)
+    addBookToLibrary()
+    createCards()
+    modalForm.reset()
 })
 
 function Book(title, author, pages, isRead) {
-    this.title = title;;
-    this.author = author;
-    this.pages = pages;
-    this.isRead = isRead;
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.isRead = isRead
+    this.index = bookStorage.length
+}
+
+function isBookRead() {
+    let r = document.querySelector("#bookRead").checked
+    if (r) {
+        return r
+    }   else if (r === false){
+        r = false
+        return r
+    }
 }
 
 function addBookToLibrary() {
     let t = document.querySelector("#bookTitle").value
     let a = document.querySelector("#bookAuthor").value
     let p = document.querySelector("#bookPages").value
-    let r = document.querySelector("#bookRead").value
-    let x = new Book(t, a, p, r);
-    bookStorage.push(x);
-    resetForm()
+    let x = new Book(t, a, p, isBookRead())
+    bookStorage.push(x)
 }
 
-function resetForm() {
-    document.querySelector("#bookTitle").value = "" 
-    document.querySelector("#bookAuthor").value = ""
-    document.querySelector("#bookPages").value = ""
-    document.querySelector("#bookRead").value = ""
-}
-
-function displayCards() {
+function createCards() {
+    resetMainSection()
     for (const key of bookStorage) {
         
         const cardDiv = document.createElement("div");
@@ -86,19 +80,43 @@ function displayCards() {
         cardDiv.appendChild(checkBoxContainer)
 
         const buttonOne = document.createElement("button")
-        buttonOne.classList.add("readBtn")
-        buttonOne.textContent = `${key.isRead}`
+        if (key.isRead === true) {
+            buttonOne.classList.add("readActive")
+            buttonOne.innerHTML = "Read"
+        } else if (key.isRead === false) {
+            buttonOne.classList.add("readNotactive")
+            buttonOne.innerHTML = "Not Read"
+        }
         checkBoxContainer.appendChild(buttonOne)
-
+    
+    
         const buttonTwo = document.createElement("button")
         buttonTwo.classList.add("deleteBtn")
         buttonTwo.textContent = "Remove"
         checkBoxContainer.appendChild(buttonTwo)
-
-        }
+    
         buttonTwo.addEventListener("click", () => {
-            buttonTwo.closest(".card").remove() 
-            
+            buttonTwo.closest(".card").remove()
+            bookStorage.splice(key.index, 1)
+        
     })
-    }
+        
+        buttonOne.addEventListener("click", () => {
+            if (key.isRead === true) {
+                buttonOne.classList.remove("readActive")
+                buttonOne.classList.add("readNotactive")
+                buttonOne.innerHTML = "Not read"
+                key.isRead = false
+            } else if (key.isRead === false) {
+                buttonOne.classList.add("readActive")
+                buttonOne.classList.remove("readNotactive")
+                buttonOne.innerHTML = "Read"
+                key.isRead = true
+            }
+        })
+    }       
+}
 
+function resetMainSection() {
+    mainSection.innerHTML = ""
+}

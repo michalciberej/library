@@ -9,6 +9,7 @@
     --secondaryClr: #4f46e5;
     --whiteClr: #FFFFFF;
     --pinkClr: #f87171;
+    --greenClr: #4ade80;
 }
 
 html {
@@ -158,7 +159,8 @@ h2 {
     line-height: 0.5rem;
 }
 
-.readBtn,
+.readActive,
+.readNotactive,
 .deleteBtn {
     background: var(--secondaryClr);
     color: var(--whiteClr);
@@ -213,4 +215,36 @@ h2 {
     background: rgba(0, 0, 0, 0.5);
     z-index: 5;
     scale: 0;
+}
+
+.readActive {
+    background: var(--greenClr);
+    color: white;
+}
+
+.readActive:hover {
+    background: var(--whiteClr);
+    color: var(--greenClr);
+}
+
+.readActive:focus {
+    background: var(--whiteClr);
+    color: var(--greenClr);
+    outline: none;
+}
+
+.readNotactive {
+    background: var(--pinkClr);
+    color: white
+}
+
+.readNotactive:hover {
+    background: var(--whiteClr);
+    color: var(--pinkClr);
+}
+
+.readnotActive:focus {
+    background: var(--whiteClr);
+    color: var(--pinkClr);
+    outline: none;
 }
