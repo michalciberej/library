@@ -31,21 +31,12 @@ function Book(title, author, pages, isRead) {
     this.index = bookStorage.length
 }
 
-function isBookRead() {
-    let r = document.querySelector("#bookRead").checked
-    if (r) {
-        return r
-    }   else if (r === false){
-        r = false
-        return r
-    }
-}
-
 function addBookToLibrary() {
     let t = document.querySelector("#bookTitle").value
     let a = document.querySelector("#bookAuthor").value
     let p = document.querySelector("#bookPages").value
-    let x = new Book(t, a, p, isBookRead())
+    let r = document.querySelector("#bookRead").checked
+    let x = new Book(t, a, p, r)
     bookStorage.push(x)
 }
 
