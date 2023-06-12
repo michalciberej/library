@@ -4,7 +4,22 @@ const modal = document.querySelector(".modal")
 const modalBtn = document.querySelector("#modalBtn")
 const overlay = document.querySelector(".overlay")
 const modalForm = document.querySelector(".modalForm")
-const bookStorage = []
+
+class Book {
+    constructor(title = "unknown", author = "unknown", pages = "unknown", isRead = false) {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.isRead = isRead
+        this.index = bookStorage.length
+    }
+    }
+
+class BookStorage {
+    constructor(storage=[]) {
+        this.storage = storage
+    }   
+}
 
 circleBtn.addEventListener("click", () => {
         modal.style.setProperty("scale", 1)
@@ -18,31 +33,39 @@ modalBtn.addEventListener("click", (event) => {
     event.preventDefault()
     modal.style.setProperty("scale", 0)
     overlay.style.setProperty("scale", 0)
-    addBookToLibrary()
+    let book = new Book(getTitle(), getAuthor(), getPages(), getIsRead())
+    bookStorage.storage.push(book)
     createCards()
     modalForm.reset()
 })
 
-function Book(title, author, pages, isRead) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.isRead = isRead
-    this.index = bookStorage.length
+
+
+const bookStorage = new BookStorage([])
+
+function getTitle() {
+    let t = document.querySelector("#bookTitle").value
+    return t
 }
 
-function addBookToLibrary() {
-    let t = document.querySelector("#bookTitle").value
+function getAuthor() {
     let a = document.querySelector("#bookAuthor").value
+    return a
+}
+
+function getPages() {
     let p = document.querySelector("#bookPages").value
+    return p
+}
+
+function getIsRead() {
     let r = document.querySelector("#bookRead").checked
-    let x = new Book(t, a, p, r)
-    bookStorage.push(x)
+    return r
 }
 
 function createCards() {
     resetMainSection()
-    for (const key of bookStorage) {
+    for (const key of bookStorage.storage) {
         
         const cardDiv = document.createElement("div");
         cardDiv.classList.add("card")
@@ -88,7 +111,7 @@ function createCards() {
     
         buttonTwo.addEventListener("click", () => {
             buttonTwo.closest(".card").remove()
-            bookStorage.splice(key.index, 1)
+            bookStorage.storage.splice(key.index, 1)
         
     })
         
